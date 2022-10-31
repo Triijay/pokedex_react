@@ -64,3 +64,28 @@
     transition: opacity 400ms;
     transition-delay: 200ms;
 }
+
+.type_tag {
+    border-radius: 16px;
+    padding: .5em 1em;
+    margin: 0px 2px;
+}
+
+.type--normal{background-color: rgb(202, 195, 183, .5)}
+.type--dark{background-color: rgb(60, 45, 35, .5)}
+.type--bug{background-color: rgb(135, 150, 14, .5)}
+.type--dragon{background-color: rgb(118, 94, 229, .5)}
+.type--electric{background-color: rgb(236, 154, 4, .5)}
+.type--fairy{background-color: rgb(241, 152, 241, .5)}
+.type--fighting{background-color: rgb(128, 51, 27, .5)}
+.type--fire{background-color: rgb(200, 33, 0, .8)}
+.type--flying{background-color: rgb(104, 126, 218, .5)}
+.type--ghost{background-color: rgb(70, 70, 149, .5)}
+.type--grass{background-color: rgb(110, 192, 49, .5)}
+.type--ground{background-color: rgb(208, 175, 83, .5)}
+.type--ice{background-color: rgb(112, 212, 245, .5)}
+.type--poison{background-color: rgb(147, 69, 149, .5)}
+.type--psychic{background-color: rgb(238, 70, 129, .5)}
+.type--rock{background-color: rgb(180, 155, 80, .5)}
+.type--steel{background-color: rgb(180, 155, 80, .5)}
+.type--water{background-color: rgb(28, 121, 215, .5)}

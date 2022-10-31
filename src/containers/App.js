@@ -14,29 +14,41 @@ class App extends Component {
 		}
 	}
 
-	componentDidMount() {
-		let pokemons = [];
+	async componentDidMount() {
 		console.log("componentDidMount");
-		fetch('https://pokeapi.co/api/v2/pokemon/?limit=2')
-			.then(response => response.json())
-			.then(pokemonList => {
-				pokemonList.results.forEach( (singlePokemon, index) => {
-					fetch(singlePokemon.url)
-						.then(response => response.json())
-						.then(pokeAttr => {
-							let pokemonData = {
-								key: ++index,
-								name: singlePokemon.name,
-								img: pokeAttr.sprites.other['official-artwork'].front_default,
-								attr: pokeAttr
-							};
-						pokemons.push(pokemonData);
-						this.forceUpdate();
-					});
-				});
-			});
-			console.log("setState");
-			this.setState({allpokemon: pokemons});	
+		const pokeOffset = 809;
+		const pokeCount = 96;
+		let pokemons = [];
+		let pokemonData;
+		let response;
+
+		response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${pokeCount}&offset=${pokeOffset}`);
+		console.log("fetch");
+		const pokemonList = await response.json();
+		for (let pkmn of pokemonList.results) {
+			// Check if data is saved locally
+			if (localStorage.getItem('pokeList_' + pkmn.name)) {
+				console.log(pkmn.name + " from storage");
+				pokemonData = JSON.parse(localStorage.getItem('pokeList_' + pkmn.name));
+			} else {
+				console.log(pkmn.name + " from api");
+				// Get Pokemon details
+				response = await fetch(pkmn.url);
+				pokemonData = await response.json();
+				// sort and structure pokemon details
+				pokemonData = {
+					key: pokemonData.id,
+					name: pokemonData.name,
+					img: pokemonData.sprites.other['official-artwork'].front_default,
+					types: pokemonData.types,
+					weight: pokemonData.weight,
+					height: pokemonData.height
+				};
+				localStorage.setItem('pokeList_' + pkmn.name, JSON.stringify(pokemonData));  
+			}
+			pokemons.push(pokemonData)
+		};		
+		this.setState({allpokemon: pokemons});	
 	}
 
 	onSearchChange = (event) => {
@@ -49,14 +61,10 @@ class App extends Component {
 			return pokemon.name.toLowerCase().includes(searchfield.toLowerCase());
 		})
 		console.log("render");
-		if(allpokemon.length === 0) {
-			console.log("if");
-			return (
-				<h2>Loading Pokemon..</h2> 
-			)
-		} else {
-			console.log("else");
-			return (
+
+		return allpokemon.length === 0 ?
+			<div id="App"><h2 className='loading'>Loading Pokemon..</h2></div> :
+			(
 				<div id="App">
 					<header className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
@@ -67,7 +75,6 @@ class App extends Component {
 					</section>
 				</div>
 			);
-		}
 	}
 }
 
