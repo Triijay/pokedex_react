@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.png';
 import './App.css';
 import CardList from '../components/CardList/CardList'
+import SearchBox from '../components/SearchBox/SearchBox';
 
 // Need react hooks here 
 class App extends Component {
@@ -36,13 +37,18 @@ class App extends Component {
 				});
 			});
 			console.log("setState");
-			this.setState({allpokemon: pokemons});
-			
+			this.setState({allpokemon: pokemons});	
 	}
 
+	onSearchChange = (event) => {
+		this.setState({ searchfield: event.target.value })
+	}
 
 	render() {
-		const { allpokemon } = this.state;
+		const { allpokemon, searchfield } = this.state;
+		const filteredPokemon = allpokemon.filter(pokemon =>{
+			return pokemon.name.toLowerCase().includes(searchfield.toLowerCase());
+		})
 		console.log("render");
 		if(allpokemon.length === 0) {
 			console.log("if");
@@ -52,12 +58,13 @@ class App extends Component {
 		} else {
 			console.log("else");
 			return (
-				<div className="App">
+				<div id="App">
 					<header className="App-header">
 						<img src={logo} className="App-logo" alt="logo" />
+						<SearchBox searchChange={this.onSearchChange}/>
 					</header>
 					<section>
-						<CardList allpokemon={allpokemon}/>
+						<CardList allpokemon={filteredPokemon}/>
 					</section>
 				</div>
 			);

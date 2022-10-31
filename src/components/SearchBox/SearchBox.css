@@ -1,0 +1,23 @@
+.search_wrapper {
+    width: 100%;
+    position: relative;
+    display: flex;
+    margin: 2em;
+    justify-content: center;
+}
+
+.search_wrapper .search_input {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    height: 2em;
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    z-index: 1;
+}
+
+.search_wrapper .search_input::placeholder {
+    color: white;
+    opacity: 1; /* Firefox */
+}
