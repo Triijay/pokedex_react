@@ -16,7 +16,7 @@ class App extends Component {
 	componentDidMount() {
 		let pokemons = [];
 		console.log("componentDidMount");
-		fetch('https://pokeapi.co/api/v2/pokemon/?limit=2')
+		fetch('https://pokeapi.co/api/v2/pokemon/?limit=151')
 			.then(response => response.json())
 			.then(pokemonList => {
 				pokemonList.results.forEach( (singlePokemon, index) => {
@@ -44,7 +44,7 @@ class App extends Component {
 	render() {
 		const { allpokemon } = this.state;
 		console.log("render");
-		if(allpokemon.length == 0) {
+		if(allpokemon.length === 0) {
 			console.log("if");
 			return (
 				<h2>Loading Pokemon..</h2> 

@@ -4,7 +4,7 @@ import Card from '../Card/Card';
 
 const CardList = ({ allpokemon }) => {
     return(
-        <div>
+        <div className='pokemon_list'>
             {allpokemon.map((singlepokemon) => (
                 <Card singlepokemon={singlepokemon}/>
             ))}
