@@ -17,14 +17,13 @@ class App extends Component {
 	componentDidMount() {
 		let pokemons = [];
 		console.log("componentDidMount");
-		fetch('https://pokeapi.co/api/v2/pokemon/?limit=151')
+		fetch('https://pokeapi.co/api/v2/pokemon/?limit=2')
 			.then(response => response.json())
 			.then(pokemonList => {
 				pokemonList.results.forEach( (singlePokemon, index) => {
 					fetch(singlePokemon.url)
 						.then(response => response.json())
 						.then(pokeAttr => {
-							console.log(pokeAttr);
 							let pokemonData = {
 								key: ++index,
 								name: singlePokemon.name,
